@@ -2,6 +2,11 @@
     let playerScore = 0;
     let computerScore = 0;
 
+    //create a variable that allows the option buttons to be pressed only if the game is not finished
+    //once the game is finished, its value becomes TRUE
+    //a PLAY AGAIN button will switch this button's value back to FALSE
+    let isGameFinished = false;
+
     //get the elements that will display the score after each round
     let playerScoreContainer = document.getElementById('player-score');
     let computerScoreContainer = document.getElementById('computer-score');
@@ -32,52 +37,55 @@
         }
     
     //create a function that takes 2 parameters and plays a round
-    function playRound(playerSelection, computerSelection) {          
+    function playRound(playerSelection, computerSelection) {
+
+        if (!isGameFinished) {          
     
-        computerSelection = getComputerChoice();
-    
-        //DRAW
-        if (playerSelection == computerSelection) {
-            displayWinnerMessage(`IT'S A DRAW! Computer also chose ${playerSelection}.`)
-        }
-    
-        // Rock vs Paper
-        else if ((playerSelection == 'Rock') && (computerSelection == 'Paper')) {
-            displayWinnerMessage('Paper beats Rock. Computer Wins!');
-            updateScore(true);
-            activateResetButton();
-        }
-    
-        else if ((playerSelection == 'Paper') && (computerSelection == 'Rock')) {
-            displayWinnerMessage('Paper beats Rock. Human Wins!');
-            updateScore(false);
-            activateResetButton();
-        }
-    
-        // Rock vs Scissors
-        else if ((playerSelection == 'Rock') && (computerSelection == 'Scissors')) {
-            displayWinnerMessage('Rock beats Scissors. Human Wins!');
-            updateScore(false);
-            activateResetButton();
-        }
-    
-        else if ((playerSelection == 'Scissors') && (computerSelection == 'Rock')) {
-            displayWinnerMessage('Rock beats Scissors. Computer Wins!');
-            updateScore(true);
-            activateResetButton();
-        }
-    
-        // Scissors vs Paper
-        else if ((playerSelection == 'Scissors') && (computerSelection == 'Paper')) {
-            displayWinnerMessage('Scissors beats Paper. Human Wins!');
-            updateScore(false);
-            activateResetButton();
-        }
-    
-        else if ((playerSelection == 'Paper') && (computerSelection == 'Scissors')) {
-            displayWinnerMessage('Scissors beats Paper. Computer Wins!');
-            updateScore(true);
-            activateResetButton();
+            computerSelection = getComputerChoice();
+        
+            //DRAW
+            if (playerSelection == computerSelection) {
+                displayWinnerMessage(`IT'S A DRAW! Computer also chose ${playerSelection}.`)
+            }
+        
+            // Rock vs Paper
+            else if ((playerSelection == 'Rock') && (computerSelection == 'Paper')) {
+                displayWinnerMessage('Paper beats Rock. Computer Wins!');
+                updateScore(true);
+                activateResetButton();
+            }
+        
+            else if ((playerSelection == 'Paper') && (computerSelection == 'Rock')) {
+                displayWinnerMessage('Paper beats Rock. Human Wins!');
+                updateScore(false);
+                activateResetButton();
+            }
+        
+            // Rock vs Scissors
+            else if ((playerSelection == 'Rock') && (computerSelection == 'Scissors')) {
+                displayWinnerMessage('Rock beats Scissors. Human Wins!');
+                updateScore(false);
+                activateResetButton();
+            }
+        
+            else if ((playerSelection == 'Scissors') && (computerSelection == 'Rock')) {
+                displayWinnerMessage('Rock beats Scissors. Computer Wins!');
+                updateScore(true);
+                activateResetButton();
+            }
+        
+            // Scissors vs Paper
+            else if ((playerSelection == 'Scissors') && (computerSelection == 'Paper')) {
+                displayWinnerMessage('Scissors beats Paper. Human Wins!');
+                updateScore(false);
+                activateResetButton();
+            }
+        
+            else if ((playerSelection == 'Paper') && (computerSelection == 'Scissors')) {
+                displayWinnerMessage('Scissors beats Paper. Computer Wins!');
+                updateScore(true);
+                activateResetButton();
+            }
         }
     }
     
@@ -115,8 +123,11 @@
         messageContaier.innerText = winnerMessage;
         }
     
+    //create a function that decides when the game is finished (the choice buttons become disabled)
     function activateResetButton() {
         if (playerScore == 3) {
+
+            isGameFinished = true;
 
             //create and display the RESET BUTTON when PLAYER'S score reaches 3
             let resetButton = document.createElement('button');
@@ -130,14 +141,17 @@
             //display the ending message for this situation
             endMessageContainer.innerText = 'CONGRATS! You beat the Computer!'
 
-            disableButtons(); //doesn't work YET
-
             resetButton.addEventListener('click', () => {
                 window.location.reload();
             });
+
+            //make the PLAY AGAIN "button" be perceived more like a button
+            resetButton.style.cursor = 'pointer';
         }
 
         else if (computerScore == 3) {
+
+            isGameFinished = true;
 
             //create and display the RESET BUTTON when COMPUTER'S score reaches 3
             let resetButton = document.createElement('button');
@@ -151,38 +165,14 @@
             //display the ending message for this situation
             endMessageContainer.innerText = 'Computer beats Human. Give it another try!';
 
-            disableButtons(); //doesn't work YET
-
             resetButton.addEventListener('click', () => {
                 window.location.reload();
             });
+
+            //make the PLAY AGAIN "button" be perceived more like a button
+            resetButton.style.cursor = 'pointer';
         }
     }
 
-    //create a function that disables the ROCK/PAPER/SCISSORS buttons when either score reaches 3
-    function disableButtons() {
-
-        // ---FIRST TRY
-        // document.getElementById('rock').disabled = true;
-        // document.getElementById('paper').disabled = true;
-        // document.getElementById('scissors').disabled = true;
-
-        // ---SECOND TRY
-        // var childNodes = document.getElementById("weapons-container").getElementsByTagName('*');
-        // for (var node of childNodes) {
-        //     node.disabled = true;
-        // }
-
-        // ---THIRD TRY
-        // rockButton.removeEventListener('click', () => {
-        //     playRound(playerSelection = 'Rock');
-        // });
-
-        // paperButton.removeEventListener('click', () => {
-        //     playRound(playerSelection = 'Paper');
-        // });
-
-        // scissorsButton.removeEventListener('click', () => {
-        //     playRound(playerSelection = 'Scissors');
-        // });
-    }
+    //create the event listener that allows the game to be played again
+    resetButton.addEventListener('click', isGameFinished = false);
