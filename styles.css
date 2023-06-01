@@ -75,14 +75,59 @@ body {
     justify-content: flex-start;
 }
 
-.buttons-section {
+#buttons-section {
     color: white;
     background-color: #393E8F;
     width: 100vw;
     display: flex;
-    flex: 5 1 500px;
+    flex: 8 1 500px;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+#round-message-container {
+    display: flex;
+    flex: 1;
+    color: white;
+    font-size: 34px;
+    font-weight: bold;
+    text-align: center;
+    align-items: center;
+    margin-top: 14px;
+}
+
+#end-message-container {
+    display: flex;
+    flex: 1;
+    color: #F3CC64;
+    font-size: 38px;
+    font-weight: bold;
+    text-align: center;
+    align-items: center;
+}
+
+#reset-button {
+    margin-top: 6px;
+    padding: 4px;
+    height: 28px;
+    display: flex;
+    flex: 1;
+    color: #393E8F;
+    font-size: 28px;
+    font-weight: bolder;
+    border: 2px solid white;
+    border-radius: 4px;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+#weapons-container {
+    flex-flow: row wrap;
+    display: flex;
+    flex: 5;
 }
 
 #rock,
