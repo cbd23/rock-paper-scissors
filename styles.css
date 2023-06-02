@@ -127,7 +127,9 @@ body {
 #weapons-container {
     flex-flow: row wrap;
     display: flex;
-    flex: 5;
+    flex: 5 1 1;
+    justify-content: center;
+    align-items: center;
 }
 
 #rock,
